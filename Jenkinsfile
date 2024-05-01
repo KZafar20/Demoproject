@@ -5,7 +5,7 @@ pipeline{
             nodejs 'node16'
     }
     environment{
-                DOCKERHUB_USERNAME = "synergysolution"
+                DOCKERHUB_USERNAME = "hamzademo"
                 APP_NAME = "cms_synergy"
                 IMAGE_TAG = "${BUILD_NUMBER}"
                 IMAGE_NAME = "${DOCKERHUB_USERNAME}" + "/" + "${APP_NAME}"
@@ -42,7 +42,7 @@ pipeline{
   stage('Build Docker images') {
                             steps {
                                 script   {
-                                Docker_Image = docker.build "${IMAGE_NAME}" + "/" + "web"                             
+                                Docker_Image = docker.build "${IMAGE_NAME}" + "_" + "web"                             
                             }
                      }
             }
