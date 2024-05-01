@@ -42,8 +42,7 @@ pipeline{
   stage('Build Docker images') {
                             steps {
                                 script   {
-                                Docker_Image = docker.build "${IMAGE_NAME}"
-                             
+                                Docker_Image = docker.build "${IMAGE_NAME}" + "/" + "Web"                             
                             }
                      }
             }
