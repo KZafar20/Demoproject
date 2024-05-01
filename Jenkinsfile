@@ -1,6 +1,9 @@
 pipeline{
     agent any
-
+        tools {
+            jdk 'jdk17'
+            nodejs 'node16'
+    }
     environment{
                 DOCKERHUB_USERNAME = "hamzademo"
                 APP_NAME = "cms_synergy"
@@ -33,10 +36,7 @@ pipeline{
         }
         stage('Install Dependencies') {
             steps {
-                script{
-
                 sh "npm install"
-                    }  
           }
         }
     } 
