@@ -42,7 +42,7 @@ pipeline{
   stage('Build Docker images') {
                             steps {
                                 script   {
-                                Docker_Image = docker.build "${IMAGE_NAME}" + "_" + "web"                             
+                                Docker_Image = docker.build "${IMAGE_NAME}" + "_" + "webb"                             
                             }
                      }
             }
@@ -50,7 +50,6 @@ pipeline{
                             steps {
                                 script   {
                                 docker.withRegistry('',REGISTRY_CRED){
-                                   Docker_image.push("$IMAGE_TAG")
                                     Docker_Image.push('latest')
                             }
                          }
