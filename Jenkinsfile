@@ -5,7 +5,7 @@ pipeline{
             nodejs 'node16'
     }
     environment{
-                DOCKERHUB_USERNAME = "hamzademo"
+                DOCKERHUB_USERNAME = "synergysolution"
                 APP_NAME = "cms_synergy"
                 IMAGE_TAG = "${BUILD_NUMBER}"
                 IMAGE_NAME = "${DOCKERHUB_USERNAME}" + "/" + "${APP_NAME}"
