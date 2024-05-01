@@ -46,5 +46,15 @@ pipeline{
                             }
                      }
             }
+            stage('Push Docker images') {
+                            steps {
+                                script   {
+                                docker.withRegistry('',REGISTRY_CRED){
+                                   Docker_image.push("$IMAGE_TAG")
+                                    Docker_Image.push('latest')
+                            }
+                         }
+                    }
+                }
     } 
 }
