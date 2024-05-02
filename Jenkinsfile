@@ -52,10 +52,14 @@ pipeline{
                                 docker.withRegistry('',REGISTRY_CRED){
                                 Docker_Image.push('latest')
                                 echo "Deployed Successfully"
-                                Docker_Image.rmi('latest')
                             }
                          }
                     }
                 }
     } 
+    post {
+        always {
+            sh 'docker rmi "${IMAGE_NAME}" + "_" + "web" '
+        }
+    }
 }
