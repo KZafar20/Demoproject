@@ -7,7 +7,7 @@ pipeline{
     environment{
                 DOCKERHUB_USERNAME = "hamzademo"
                 APP_NAME = "cms_synergy"
-                IMAGE_NAME = "${DOCKERHUB_USERNAME}" + "/" + "${APP_NAME}"
+                IMAGE_NAME = "${DOCKERHUB_USERNAME}" + "/" + "${APP_NAME} + "_" + "web"
                 IMAGE_TAG="latest"
                 REGISTRY_CRED = 'DockerHub'
         }
@@ -42,7 +42,7 @@ pipeline{
   stage('Build Docker images') {
                             steps {
                                 script   {
-                                Docker_Image = docker.build "${IMAGE_NAME}" + "_" + "web"                           
+                                Docker_Image = docker.build "${IMAGE_NAME}"                           
                             }
                      }
             }
@@ -50,8 +50,9 @@ pipeline{
                             steps {
                                 script   {
                                 docker.withRegistry('',REGISTRY_CRED){
-                                Docker_Image.push('latest')
+                                Docker_Image.push(${IMAGE_TAG})
                                 echo "Deployed Successfully"
+                                sh 'docker rmi $IMAGE_NAME:$IMAGE_TAG'
                             }
                          }
                     }
@@ -59,7 +60,7 @@ pipeline{
     } 
     post {
         always {
-            sh 'docker rmi "${IMAGE_NAME}" + "_" + "web" '
+            sh 'docker logout'
         }
     }
 }
