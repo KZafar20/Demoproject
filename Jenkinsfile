@@ -52,7 +52,7 @@ pipeline{
                                 docker.withRegistry('',REGISTRY_CRED){
                                 Docker_Image.push('latest')
                                 echo "Deployed Successfully"
-                                docker image rm Docker_Image('latest')
+                                Docker_Image.rmi('latest')
                             }
                          }
                     }
