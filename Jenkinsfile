@@ -50,7 +50,7 @@ pipeline{
                             steps {
                                 script   {
                                 docker.withRegistry('',REGISTRY_CRED){
-                                Docker_Image.push($IMAGE_TAG)
+                                Docker_Image.push(IMAGE_TAG)
                                 echo "Deployed Successfully"
                                 sh 'docker rmi $IMAGE_NAME:$IMAGE_TAG'
                             }
