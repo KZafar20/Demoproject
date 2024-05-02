@@ -7,7 +7,7 @@ pipeline{
     environment{
                 DOCKERHUB_USERNAME = "hamzademo"
                 APP_NAME = "cms_synergy"
-                IMAGE_NAME = "${DOCKERHUB_USERNAME}" + "/" + "${APP_NAME} + "_" + "web"
+                IMAGE_NAME = "${DOCKERHUB_USERNAME}" + "/" + "${APP_NAME}" + "_" + "web"
                 IMAGE_TAG="latest"
                 REGISTRY_CRED = 'DockerHub'
         }
