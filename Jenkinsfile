@@ -16,7 +16,7 @@ pipeline{
 
             agent{
                 docker{
-                    images 'maven'
+                    image 'maven'
                 }
             }
             steps{
