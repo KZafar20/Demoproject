@@ -10,11 +10,9 @@ pipeline{
                 APP_NAME = "cms_synergy"
                 IMAGE_NAME = "${DOCKERHUB_USERNAME}" + "/" + "${APP_NAME}" + "_" + "web"
                 IMAGE_TAG="latest"
-                REGISTRY_CRED = 'Docker-Hub-Token'
-                environment
-                 {
-                    SCANNER_HOME = tool 'sonar-scanner'
-                }
+                REGISTRY_CRED = 'Docker-Hub-Token' 
+                SCANNER_HOME = tool 'sonar-scanner'
+                
         }
    stages{
        /* stage("Sonar Quality Check"){
