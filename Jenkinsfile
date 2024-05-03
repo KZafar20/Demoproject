@@ -9,8 +9,25 @@ pipeline{
                 APP_NAME = "cms_synergy"
                 IMAGE_NAME = "${DOCKERHUB_USERNAME}" + "/" + "${APP_NAME}" + "_" + "web"
                 IMAGE_TAG="latest"
-                REGISTRY_CRED = 'DockerHub'
+                REGISTRY_CRED = 'Docker-Hub-Token'
         }
+   stages{
+
+     /*   stage("Sonar Quality Status"){
+
+            agent{
+                docker{
+                    images 'maven'
+                }
+            }
+            steps{
+
+                script{
+
+                    
+                }
+            }
+        }*/
     stages{
 
         stage("clean workspace"){
@@ -39,14 +56,14 @@ pipeline{
                 sh "npm install"
           }
         }
-  stage('Build Docker images') {
+        stage('Build Docker images') {
                             steps {
                                 script   {
                                 Docker_Image = docker.build "${IMAGE_NAME}"                           
                             }
                      }
             }
-            stage('Push Docker images') {
+        stage('Push Docker images') {
                             steps {
                                 script   {
                                 docker.withRegistry('',REGISTRY_CRED){
