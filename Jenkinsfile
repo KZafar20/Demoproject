@@ -3,6 +3,7 @@ pipeline{
         tools {
             jdk 'jdk17'
             nodejs 'node16'
+            maven 'maven3'
     }
     environment{
                 DOCKERHUB_USERNAME = "hamzademo"
