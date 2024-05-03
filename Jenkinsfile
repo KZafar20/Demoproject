@@ -16,8 +16,8 @@ pipeline{
                     SCANNER_HOME = tool 'sonar-scanner'
                 }
         }
-  /*   stages{
-        stage("Sonar Quality Check"){
+   stages{
+       /* stage("Sonar Quality Check"){
 
             agent{
                 docker{
