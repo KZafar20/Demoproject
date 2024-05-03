@@ -59,7 +59,7 @@ pipeline{
     stage("Sonarqube Analysis") {
             steps {
             
-                    sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.url=http://3.111.31.234:9000 -Dsonar.login=squ_3ffe20029e5b8eb30b4ce915c378ea3ff07d1ef5 -Dsonar.projectName=hamzademo/cms_synergy_web \
+                    sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.url=http://3.111.31.234:9000 -Dsonar.login=squ_a9117edf8bb86c79d126c1c393c20edabfcd782d -Dsonar.projectName=hamzademo/cms_synergy_web \
                    -Dsonar.sources=. \
                    -Dsonar.projectKey=hamzademo/cms_synergy_web '''
                 }
