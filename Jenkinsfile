@@ -11,6 +11,10 @@ pipeline{
                 IMAGE_NAME = "${DOCKERHUB_USERNAME}" + "/" + "${APP_NAME}" + "_" + "web"
                 IMAGE_TAG="latest"
                 REGISTRY_CRED = 'Docker-Hub-Token'
+                environment
+                 {
+                    SCANNER_HOME = tool 'sonar-server'
+                }
         }
      stages{
         stage("Sonar Quality Check"){
@@ -24,9 +28,10 @@ pipeline{
 
                 script{
 
-                    withSonarQubeEnv(credentialsId: 'Sonar-Cred') {
-    // some block
-                    sh 'mvn clean package sonar:sonar'
+                    withSonarQubeEnv(credentialsId: 'Sonar-Cred')
+                     {
+
+                            sh 'mvn clean package sonar:sonar'
                     }
                 }
             }
