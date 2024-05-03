@@ -11,7 +11,6 @@ pipeline{
                 IMAGE_TAG="latest"
                 REGISTRY_CRED = 'Docker-Hub-Token'
         }
-   stages{
 
      /*   stage("Sonar Quality Status"){
 
