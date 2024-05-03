@@ -13,10 +13,10 @@ pipeline{
                 REGISTRY_CRED = 'Docker-Hub-Token'
                 environment
                  {
-                    SCANNER_HOME = tool 'sonar-server'
+                    SCANNER_HOME = tool 'sonar-scanner'
                 }
         }
-     stages{
+  /*   stages{
         stage("Sonar Quality Check"){
 
             agent{
@@ -36,7 +36,7 @@ pipeline{
                 }
             }
         }
-
+*/
         stage("clean workspace"){
 
             steps{
@@ -55,6 +55,16 @@ pipeline{
                     git branch: 'main', 
                     credentialsId: 'github',
                     url: 'https://github.com/KZafar20/Demoproject.git'
+                }
+            }
+        }
+    stage("Sonarqube Analysis") {
+            steps {
+                withSonarQubeEnv('Sonar-Cred') {
+
+                    sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.url=http://localhost:9000 -Dsonar.login=squ_a9117edf8bb86c79d126c1c393c20edabfcd782d -Dsonar.projectName=hamzademo/cms_synergy_web \
+                   -Dsonar.sources=. \
+                   -Dsonar.projectKey=hamzademo/cms_synergy_web '''
                 }
             }
         }
