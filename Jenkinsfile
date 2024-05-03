@@ -11,8 +11,8 @@ pipeline{
                 IMAGE_TAG="latest"
                 REGISTRY_CRED = 'Docker-Hub-Token'
         }
-
-     /*   stage("Sonar Quality Status"){
+     stages{
+        stage("Sonar Quality Check"){
 
             agent{
                 docker{
@@ -23,11 +23,13 @@ pipeline{
 
                 script{
 
-                    
+                    withSonarQubeEnv(credentialsId: 'Sonar-Cred') {
+    // some block
+                    sh 'mvn clean package sonar:sonar'
+                    }
                 }
             }
-        }*/
-    stages{
+        }
 
         stage("clean workspace"){
 
