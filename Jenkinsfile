@@ -58,14 +58,12 @@ pipeline{
         }
     stage("Sonarqube Analysis") {
             steps {
-                withSonarQubeEnv('Sonar-Cred') {
-
+            
                     sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.url=http://localhost:9000 -Dsonar.login=squ_a9117edf8bb86c79d126c1c393c20edabfcd782d -Dsonar.projectName=hamzademo/cms_synergy_web \
                    -Dsonar.sources=. \
                    -Dsonar.projectKey=hamzademo/cms_synergy_web '''
                 }
             }
-        }
         stage('Install Dependencies') {
             steps {
                 sh "npm install"
