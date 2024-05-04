@@ -40,13 +40,14 @@ pipeline{
             steps{
                 
                 script{
-                    sh '''$SCANNER_HOME/bin/sonar-scanner -Dsonar.url=http://172.214.50.223:9000/ -Dsonar.login=squ_481e2f8047c9610023f36533ec252d40c2d2fcda -Dsonar.projectName=CmsSynergyWeb \
+                    withSonarQubeEnv('Sonar-Server') {
+                    sh '''$SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=CmsSynergyWeb \
                    -Dsonar.java.binaries=. \
                    -Dsonar.projectKey=CmsSynergyWeb'''
                    }
-                    
-                }
+                }  
             }
+          }
         stage('Install Dependencies') {
             steps {
                 sh "npm install"
@@ -77,3 +78,5 @@ pipeline{
         }
     }
 }
+
+

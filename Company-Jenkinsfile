@@ -1,0 +1,48 @@
+
+
+pipeline {
+    agent any
+    environment{
+        DOCKERHUB_USERNAME = "hamzademo"
+        APP_NAME = "cms_synergy"
+        DOCKERFILE_PATH1 = "src" + "/" + "Dockerfile-Web"
+        DOCKERFILE_PATH2 = "src" + "/" + "Dockerfile-Api"
+        IMAGE_NAME1 = "${DOCKERHUB_USERNAME}" + "/" + "${APP_NAME}" + "_" + "web"
+        IMAGE_NAME2 = "${DOCKERHUB_USERNAME}" + "/" + "${APP_NAME}" + "_" + "Api"
+        IMAGE_TAG="latest"
+        REGISTRY_CRED = 'Docker-Hub-Token'
+        SCANNER_HOME = tool 'sonar-scanner'
+    }
+    stages {
+        
+        stage("Checkout from source code") {
+            steps {
+                script{
+
+                    git branch: 'Development', 
+                    credentialsId: 'Git-BLS',
+                    url: 'https://github.com/SynergyTek/CMSSynergy.git'
+                }
+            }
+        }
+        stage('Static code analysis'){
+            steps{
+                
+                script{
+                    sh '''$SCANNER_HOME/bin/sonar-scanner -Dsonar.url=http://172.214.50.223:9000/ -Dsonar.login=squ_481e2f8047c9610023f36533ec252d40c2d2fcda -Dsonar.projectName=CmsSynergy \
+                   -Dsonar.java.binaries=. \
+                   -Dsonar.projectKey=CmsSynergy'''
+                   }
+                    
+                }
+            }
+             stage('Build Docker images') {
+                            steps {
+                                script   {
+                                Docker_Image = docker.build("${IMAGE_NAME1}", "-f ${DOCKERFILE_PATH1} .")
+                                Docker_Image = docker.build("${IMAGE_NAME2}", "-f ${DOCKERFILE_PATH2} .")
+                        }
+                     }
+        }
+    }
+}
