@@ -2,7 +2,6 @@ pipeline{
     agent any
         tools {
             jdk 'jdk17'
-            nodejs 'node16'
             maven 'maven3'
     }
     environment{
@@ -14,28 +13,8 @@ pipeline{
                 SCANNER_HOME = tool 'sonar-scanner'
                 
         }
-   stages{
-       /* stage("Sonar Quality Check"){
-
-            agent{
-                docker{
-                    image 'maven'
-                }
-            }
-            steps{
-
-                script{
-
-                    withSonarQubeEnv(credentialsId: 'Sonar-Cred')
-                     {
-
-                            sh 'mvn clean package sonar:sonar'
-                    }
-                }
-            }
-        }
-*/
-        stage("clean workspace"){
+   stages{      
+       stage("clean workspace"){
 
             steps{
 
@@ -56,12 +35,15 @@ pipeline{
                 }
             }
         }
-    stage("Sonarqube Analysis") {
-            steps {
-            
-                    sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.url=http://3.111.31.234:9000 -Dsonar.login=squ_a9117edf8bb86c79d126c1c393c20edabfcd782d -Dsonar.projectName=hamzademo/cms_synergy_web \
-                   -Dsonar.sources=. \
-                   -Dsonar.projectKey=hamzademo/cms_synergy_web '''
+    stage('Static code analysis'){
+            steps{
+                
+                script{
+                    sh '''$SCANNER_HOME/bin/sonar-scanner -Dsonar.url=http://172.214.50.223:9000/ -Dsonar.login=squ_481e2f8047c9610023f36533ec252d40c2d2fcda -Dsonar.projectName=CmsSynergyWeb \
+                   -Dsonar.java.binaries=. \
+                   -Dsonar.projectKey=CmsSynergyWeb'''
+                   }
+                    
                 }
             }
         stage('Install Dependencies') {
